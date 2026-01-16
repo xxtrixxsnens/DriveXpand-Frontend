@@ -27,3 +27,7 @@
         - Eintragen von Fahrten 
         -> Mehr Kontext e.g. Geburtstagsfeier
         -> Zu welchen Orten man gefahren ist?
+
+- Anlegen von verschiedenen Autos
+     - Anleitung, um die Daten vom Auto zum Server zu bekommen
+     -> e.g einsetzen des Microcontrollers
