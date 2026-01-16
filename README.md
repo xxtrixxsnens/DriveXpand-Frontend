@@ -31,3 +31,7 @@
 - Anlegen von verschiedenen Autos
      - Anleitung, um die Daten vom Auto zum Server zu bekommen
      -> e.g einsetzen des Microcontrollers
+     - Übersicht Ausgaben
+        - Reparatur
+        - Tanken
+          - Abschätzen von Kosten pro km?
