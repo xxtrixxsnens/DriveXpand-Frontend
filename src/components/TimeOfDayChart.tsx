@@ -1,10 +1,7 @@
-interface TimeSlot {
-  label: string;
-  percentage: number;
-}
+import { TimeBucket } from "../types/api";
 
 interface TimeOfDayChartProps {
-  data: TimeSlot[];
+  data: TimeBucket[];
 }
 
 export function TimeOfDayChart({ data }: TimeOfDayChartProps) {
@@ -16,12 +13,12 @@ export function TimeOfDayChart({ data }: TimeOfDayChartProps) {
           <div key={index}>
             <div className="flex justify-between text-sm mb-1">
               <span>{slot.label}</span>
-              <span className="text-muted-foreground">{slot.percentage}%</span>
+              <span className="text-muted-foreground">{slot.value}%</span>
             </div>
             <div className="h-2 bg-muted rounded-full overflow-hidden">
               <div 
                 className="h-full bg-primary rounded-full transition-all duration-500"
-                style={{ width: `${slot.percentage}%` }}
+                style={{ width: `${slot.value}%` }}
               />
             </div>
           </div>

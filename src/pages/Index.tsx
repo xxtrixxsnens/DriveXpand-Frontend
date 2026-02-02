@@ -6,72 +6,84 @@ import { TimeOfDayChart } from "@/components/TimeOfDayChart";
 import { Achievement } from "@/components/Achievement";
 import { Warning } from "@/components/Warning";
 import { TripCard } from "@/components/TripCard";
-import { Route, Target, Flame, Car } from "lucide-react";
+import { Route, Target, Flame } from "lucide-react";
+import { DayValue, TimeBucket } from "@/types/api";
+import { UITrip, Stat, FunFact as FunFactType, Warning as WarningType } from "@/types/ui";
 
-const weekdayData = [
-  { day: "Mo", hours: 2.5 },
-  { day: "Di", hours: 1.8 },
-  { day: "Mi", hours: 3.2 },
-  { day: "Do", hours: 2.1 },
-  { day: "Fr", hours: 4.5 },
-  { day: "Sa", hours: 1.2 },
-  { day: "So", hours: 0.8 },
+const weekdayData: DayValue[] = [
+  { day: "Mo", value: 2.5 },
+  { day: "Di", value: 1.8 },
+  { day: "Mi", value: 3.2 },
+  { day: "Do", value: 2.1 },
+  { day: "Fr", value: 4.5 },
+  { day: "Sa", value: 1.2 },
+  { day: "So", value: 0.8 },
 ];
 
-const timeOfDayData = [
-  { label: "Morgens (6-10)", percentage: 35 },
-  { label: "Mittags (10-14)", percentage: 15 },
-  { label: "Nachmittags (14-18)", percentage: 30 },
-  { label: "Abends (18-22)", percentage: 20 },
+const timeOfDayData: TimeBucket[] = [
+  { label: "Morgens (6-10)", value: 35 },
+  { label: "Mittags (10-14)", value: 15 },
+  { label: "Nachmittags (14-18)", value: 30 },
+  { label: "Abends (18-22)", value: 20 },
 ];
 
 const achievements = [
-  { title: "1.000 km Club", description: "Erste 1.000 km gefahren", unlocked: true, icon: <Route className="w-5 h-5" /> },
-  { title: "Frühaufsteher", description: "10 Fahrten vor 7 Uhr", unlocked: true, icon: <Target className="w-5 h-5" /> },
-  { title: "Sparfuchs", description: "Verbrauch unter 5L/100km", unlocked: false, icon: <Flame className="w-5 h-5" /> },
+  { achievement: { name: "1.000 km Club", achieved: true }, description: "Erste 1.000 km gefahren", icon: <Route className="w-5 h-5" /> },
+  { achievement: { name: "Frühaufsteher", achieved: true }, description: "10 Fahrten vor 7 Uhr", icon: <Target className="w-5 h-5" /> },
+  { achievement: { name: "Sparfuchs", achieved: false }, description: "Verbrauch unter 5L/100km", icon: <Flame className="w-5 h-5" /> },
 ];
 
-const trips = [
+const trips: UITrip[] = [
   {
-    date: "15.01.2026",
-    time: "14:32",
+    datum_uhrzeit_start: "2026-01-15 14:32",
     startLocation: "Berlin Mitte",
     endLocation: "Potsdam",
-    distance: 38.5,
-    duration: "42 min",
-    avgSpeed: 55,
+    km: 38.5,
+    dauer: "42 min",
+    avg_speed: "55",
   },
   {
-    date: "15.01.2026",
-    time: "09:15",
+    datum_uhrzeit_start: "2026-01-15 09:15",
     startLocation: "Zuhause",
     endLocation: "Büro",
-    distance: 12.3,
-    duration: "18 min",
-    avgSpeed: 41,
+    km: 12.3,
+    dauer: "18 min",
+    avg_speed: "41",
     context: "Arbeit",
   },
   {
-    date: "14.01.2026",
-    time: "19:30",
+    datum_uhrzeit_start: "2026-01-14 19:30",
     startLocation: "Büro",
     endLocation: "Restaurant",
-    distance: 5.2,
-    duration: "12 min",
-    avgSpeed: 26,
+    km: 5.2,
+    dauer: "12 min",
+    avg_speed: "26",
     context: "Geburtstagsfeier",
   },
   {
-    date: "14.01.2026",
-    time: "08:45",
+    datum_uhrzeit_start: "2026-01-14 08:45",
     startLocation: "Zuhause",
     endLocation: "Büro",
-    distance: 12.3,
-    duration: "22 min",
-    avgSpeed: 34,
+    km: 12.3,
+    dauer: "22 min",
+    avg_speed: "34",
     context: "Arbeit",
   },
 ];
+
+const stats: Stat[] = [
+    { label: "Gefahrene Strecke", value: "847", unit: "km" },
+    { label: "Durchschnittstempo", value: "48", unit: "km/h" },
+    { label: "Fahrzeit", value: "16,5", unit: "Std" },
+    { label: "Fahrten", value: "23" },
+];
+
+const funFact: FunFactType = { text: "Du bist diesen Monat 847 km gefahren – das ist so weit wie von Berlin nach Amsterdam!" };
+
+const warning: WarningType = { 
+  title: "Starkes Bremsen erkannt", 
+  description: "3 starke Bremsmanöver in den letzten Fahrten. Versuche vorausschauender zu fahren."
+};
 
 export default function Index() {
   return (
@@ -83,16 +95,15 @@ export default function Index() {
         <section className="mb-8">
           <p className="section-title mb-3">Übersicht</p>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-            <StatCard label="Gefahrene Strecke" value="847" unit="km" />
-            <StatCard label="Durchschnittstempo" value="48" unit="km/h" />
-            <StatCard label="Fahrzeit" value="16,5" unit="Std" />
-            <StatCard label="Fahrten" value="23" />
+            {stats.map((stat, index) => (
+              <StatCard key={index} stat={stat} />
+            ))}
           </div>
         </section>
 
         {/* Fun Fact */}
         <section className="mb-8">
-          <FunFact text="Du bist diesen Monat 847 km gefahren – das ist so weit wie von Berlin nach Amsterdam!" />
+          <FunFact funFact={funFact} />
         </section>
 
         {/* Wann fährst du? */}
@@ -118,10 +129,7 @@ export default function Index() {
         <section className="mb-8">
           <p className="section-title mb-3">Hinweise</p>
           <div className="space-y-3">
-            <Warning 
-              title="Starkes Bremsen erkannt" 
-              description="3 starke Bremsmanöver in den letzten Fahrten. Versuche vorausschauender zu fahren."
-            />
+            <Warning warning={warning} />
           </div>
         </section>
 
@@ -135,7 +143,7 @@ export default function Index() {
           </div>
           <div className="space-y-2">
             {trips.map((trip, index) => (
-              <TripCard key={index} {...trip} />
+              <TripCard key={index} trip={trip} />
             ))}
           </div>
         </section>

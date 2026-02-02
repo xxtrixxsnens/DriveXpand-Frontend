@@ -1,12 +1,13 @@
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Cell } from "recharts";
+import { DayValue } from "../types/api";
 
 interface DrivingTimeChartProps {
-  data: { day: string; hours: number }[];
+  data: DayValue[];
   title: string;
 }
 
 export function DrivingTimeChart({ data, title }: DrivingTimeChartProps) {
-  const maxValue = Math.max(...data.map(d => d.hours));
+  const maxValue = Math.max(...data.map(d => d.value ?? 0));
   
   return (
     <div className="card-clean p-4">
@@ -26,11 +27,11 @@ export function DrivingTimeChart({ data, title }: DrivingTimeChartProps) {
               tick={{ fill: 'hsl(220, 10%, 45%)', fontSize: 11 }}
               width={30}
             />
-            <Bar dataKey="hours" radius={[4, 4, 0, 0]}>
+            <Bar dataKey="value" radius={[4, 4, 0, 0]}>
               {data.map((entry, index) => (
                 <Cell 
                   key={`cell-${index}`} 
-                  fill={entry.hours === maxValue ? 'hsl(220, 70%, 50%)' : 'hsl(220, 10%, 88%)'} 
+                  fill={(entry.value ?? 0) === maxValue ? 'hsl(220, 70%, 50%)' : 'hsl(220, 10%, 88%)'} 
                 />
               ))}
             </Bar>

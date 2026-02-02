@@ -15,3 +15,8 @@ export interface Stat {
 export interface FunFact {
   text: string;
 }
+
+export interface Warning {
+  title: string;
+  description: string;
+}
