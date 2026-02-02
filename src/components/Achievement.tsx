@@ -1,5 +1,5 @@
 import { Trophy, Lock } from "lucide-react";
-import { Achievement as AchievementType } from "../types/api";
+import type { Achievement as AchievementType } from "../types/api";
 
 interface AchievementProps {
   achievement: AchievementType;

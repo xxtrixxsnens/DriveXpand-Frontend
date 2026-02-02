@@ -1,4 +1,4 @@
-import { Trip } from "./api";
+import type { Trip } from './api';
 
 export interface UITrip extends Trip {
   startLocation: string;

@@ -1,4 +1,4 @@
-import { Stat } from "../types/ui";
+import type { Stat } from "../types/ui";
 
 interface StatCardProps {
   stat: Stat;

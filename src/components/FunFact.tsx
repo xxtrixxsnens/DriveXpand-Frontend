@@ -1,5 +1,5 @@
 import { Sparkles } from "lucide-react";
-import { FunFact as FunFactType } from "../types/ui";
+import type { FunFact as FunFactType } from "../types/ui";
 
 interface FunFactProps {
   funFact: FunFactType;
